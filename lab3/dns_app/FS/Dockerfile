@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.6
 
 RUN apt-get update \
   && apt-get clean \
@@ -12,9 +12,10 @@ RUN groupadd -g 799 nyu && \
 WORKDIR /app
 
 RUN pip install Flask
+RUN pip install flask_api
 
 USER nyu
 
 COPY --chown=nyu:nyu . .
 
-CMD [ "python", "./run.py" ]
+CMD [ "python", "./app.py" ]
