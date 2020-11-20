@@ -1,3 +1,6 @@
 __pycache__/
 .idea/
 .DS_Store
+Assignment6-2/target/
+Assignment6-2/*.iml
+Assignment6-2/out/
