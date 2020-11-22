@@ -26,6 +26,7 @@ public class Initializer {
             fsm.addTransition(new Transition(new MyState(StateEnum.SYN_RCVD), new MyEvent(EventEnum.ACKReceived), new MyState(StateEnum.ESTABLISHED), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.SYN_RCVD), new MyEvent(EventEnum.Close), new MyState(StateEnum.FIN_WAIT_1), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.DataToSend), new MyState(StateEnum.ESTABLISHED), new MyAction()));
+            fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.DataReceived), new MyState(StateEnum.ESTABLISHED), new MyAction()));
 
             fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.Close), new MyState(StateEnum.FIN_WAIT_1), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.FIN_WAIT_1), new MyEvent(EventEnum.ACKReceived), new MyState(StateEnum.FIN_WAIT_2), new MyAction()));
@@ -44,6 +45,8 @@ public class Initializer {
             fsm.addTransition(new Transition(new MyState(StateEnum.LISTEN), new MyEvent(EventEnum.SYNReceived), new MyState(StateEnum.SYN_RCVD), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.SYN_RCVD), new MyEvent(EventEnum.ACKReceived), new MyState(StateEnum.ESTABLISHED), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.DataReceived), new MyState(StateEnum.ESTABLISHED), new MyAction()));
+            fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.DataToSend), new MyState(StateEnum.ESTABLISHED), new MyAction()));
+
             fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.FINReceived), new MyState(StateEnum.CLOSE_WAIT), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.CLOSE_WAIT), new MyEvent(EventEnum.Close), new MyState(StateEnum.LAST_ACK), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.LAST_ACK), new MyEvent(EventEnum.ACKReceived), new MyState(StateEnum.CLOSED), new MyAction()));

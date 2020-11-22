@@ -21,22 +21,22 @@ public class main {
     private static final String clientName = "client";
     private static final String serverName = "server";
 
-    private static final String tempPath = "/Users/luolingwei/Desktop/Program/Classes/NetWork/NYU-Network/Assignment6-2/src/main/java/TestCases";
+//    private static final String tempPath = "/Users/luolingwei/Desktop/Program/Classes/NetWork/NYU-Network/Assignment6-2/src/main/java/TestCases";
 
     public static void main(String[] args) throws IOException, FsmException {
 
         // Get Input Parameters
         System.out.println("==========================================================================");
         System.out.println("Mini TCP FSM, Author: Lingwei Luo (lingweiluo@nyu.edu)");
-        System.out.println("Please enter your file path parameter in the command line");
+        System.out.println("Please enter your txt file path parameter in the command line");
         System.out.println("==========================================================================");
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Please Enter Absolute Path of Test Cases (do Not include \" at both ends of the path): ");
-//        String path = sc.nextLine();
-//        sc.close();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please Enter Absolute Path of Test Cases (txt file required): ");
+        String path = sc.nextLine();
+        sc.close();
 
         Loader loader = new Loader();
-        List<File> files = loader.readFiles(tempPath);
+        List<File> files = loader.readFiles(path);
         List<String> fileNames = loader.getFileNames();
 
         for (int i=0; i<files.size(); i++) {
@@ -102,13 +102,21 @@ public class main {
                 try {
                     server.doEvent(new MyEvent(EventEnum.DataReceived));
                 } catch (FsmException e) {
-                    System.out.printf("Invalid instruction [%s] cause exception [%s]\n", instr, e.toString());
+                    try {
+                        client.doEvent(new MyEvent(EventEnum.DataReceived));
+                    } catch (FsmException fsmException) {
+                        System.out.printf("Invalid instruction [%s] cause exception [%s]\n", instr, e.toString());
+                    }
                 }
             } else if (instr.equals(InstrEnum.SDATA.name())) {
                 try {
                     client.doEvent(new MyEvent(EventEnum.DataToSend));
                 } catch (FsmException e) {
-                    System.out.printf("Invalid instruction [%s] cause exception [%s]\n", instr, e.toString());
+                    try {
+                        server.doEvent(new MyEvent(EventEnum.DataToSend));
+                    } catch (FsmException fsmException) {
+                        System.out.printf("Invalid instruction [%s] cause exception [%s]\n", instr, e.toString());
+                    }
                 }
             } else if (instr.equals(InstrEnum.FIN.name())) {
                 try {
@@ -136,6 +144,8 @@ public class main {
                 } catch (FsmException e) {
                     System.out.printf("Invalid instruction [%s] cause exception [%s]\n", instr, e.toString());
                 }
+            } else {
+                System.out.printf("Error: unexpected Event [%s]\n", instr);
             }
 
         }
