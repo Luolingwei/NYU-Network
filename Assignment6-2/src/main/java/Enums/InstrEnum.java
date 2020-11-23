@@ -11,6 +11,7 @@ public enum InstrEnum {
     SDATA,
     FIN,
     CLOSE,
-    TIMEOUT;
+    TIMEOUT,
+    SEND;
 
 }

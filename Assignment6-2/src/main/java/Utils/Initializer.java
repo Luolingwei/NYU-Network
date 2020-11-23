@@ -11,13 +11,10 @@ import MyFSM.MyState;
 
 public class Initializer {
 
-    private static final String clientName = "client";
-    private static final String serverName = "server";
 
-    public void init(FSM fsm, String fsmName) throws FsmException {
+    public void init(FSM fsm) throws FsmException {
 
-        if (fsmName.equals(clientName)) {
-
+            // client
             fsm.addTransition(new Transition(new MyState(StateEnum.CLOSED), new MyEvent(EventEnum.ActiveOpen), new MyState(StateEnum.SYN_SENT), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.SYN_SENT), new MyEvent(EventEnum.Close), new MyState(StateEnum.ESTABLISHED), new MyAction()));
 
@@ -37,23 +34,16 @@ public class Initializer {
 
             fsm.addTransition(new Transition(new MyState(StateEnum.TIME_WAIT), new MyEvent(EventEnum.TimedWaitEnd), new MyState(StateEnum.CLOSED), new MyAction()));
 
-        } else if (fsmName.equals(serverName)){
-
+            // server
             fsm.addTransition(new Transition(new MyState(StateEnum.CLOSED), new MyEvent(EventEnum.PassiveOpen), new MyState(StateEnum.LISTEN), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.LISTEN), new MyEvent(EventEnum.Close), new MyState(StateEnum.CLOSED), new MyAction()));
 
             fsm.addTransition(new Transition(new MyState(StateEnum.LISTEN), new MyEvent(EventEnum.SYNReceived), new MyState(StateEnum.SYN_RCVD), new MyAction()));
-            fsm.addTransition(new Transition(new MyState(StateEnum.SYN_RCVD), new MyEvent(EventEnum.ACKReceived), new MyState(StateEnum.ESTABLISHED), new MyAction()));
-            fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.DataReceived), new MyState(StateEnum.ESTABLISHED), new MyAction()));
-            fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.DataToSend), new MyState(StateEnum.ESTABLISHED), new MyAction()));
 
             fsm.addTransition(new Transition(new MyState(StateEnum.ESTABLISHED), new MyEvent(EventEnum.FINReceived), new MyState(StateEnum.CLOSE_WAIT), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.CLOSE_WAIT), new MyEvent(EventEnum.Close), new MyState(StateEnum.LAST_ACK), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.LAST_ACK), new MyEvent(EventEnum.ACKReceived), new MyState(StateEnum.CLOSED), new MyAction()));
 
         }
-
-
-    }
 
 }
