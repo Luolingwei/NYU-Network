@@ -16,7 +16,7 @@ public class Initializer {
 
             // client
             fsm.addTransition(new Transition(new MyState(StateEnum.CLOSED), new MyEvent(EventEnum.ActiveOpen), new MyState(StateEnum.SYN_SENT), new MyAction()));
-            fsm.addTransition(new Transition(new MyState(StateEnum.SYN_SENT), new MyEvent(EventEnum.Close), new MyState(StateEnum.ESTABLISHED), new MyAction()));
+            fsm.addTransition(new Transition(new MyState(StateEnum.SYN_SENT), new MyEvent(EventEnum.Close), new MyState(StateEnum.CLOSED), new MyAction()));
 
             fsm.addTransition(new Transition(new MyState(StateEnum.SYN_SENT), new MyEvent(EventEnum.SYNACKReceived), new MyState(StateEnum.ESTABLISHED), new MyAction()));
             fsm.addTransition(new Transition(new MyState(StateEnum.SYN_SENT), new MyEvent(EventEnum.SYNReceived), new MyState(StateEnum.SYN_RCVD), new MyAction()));
