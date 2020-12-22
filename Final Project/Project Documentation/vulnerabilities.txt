@@ -1,0 +1,12 @@
+Part3 Layer-3 ¡°Shortest-Path Switching¡± Routing Application:
+
+(1) Efficiency of Bellman-Ford algorithm in shortest path finding needs to be improved
+
+(2) More tests should be conducted with more complex topology
+
+
+Part4 Distributed Load Balance Routing Application:
+
+(1) Stability of load balancers needs to be improved
+
+(2) More tests should be conducted under high request load conditions

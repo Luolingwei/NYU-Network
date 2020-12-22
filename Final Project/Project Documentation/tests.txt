@@ -1,0 +1,37 @@
+Part3 Layer-3 ¡°Shortest-Path Switching¡± Routing Application:
+
+(1) Start application: java -jar FloodlightWithApps.jar -cf shortestPathSwitching.prop
+
+(2) Start mininet: sudo ./run_mininet.py single,3
+
+(3) Pingall to test network: mininet> pingall
+
+(4) Let a link down: link h1 s1 down
+
+(5) Pingall to test network: mininet> pingall
+
+(6) Let a link up: link h1 s1 up
+
+(7) Pingall to test network: mininet> pingall
+
+Similar test methods and results for (linear,n), (tree,n), (assign1), (triangle), (mesh,n), (someloops).
+
+
+
+Part4 Distributed Load Balance Routing Application:
+
+(1) Start application: java -jar FloodlightWithApps.jar -cf loadbalancer.prop 
+
+(2) Start mininet: sudo ./run_mininet.py single,3
+
+(3) Pingall to test network: mininet> pingall
+
+(4) Let a link down: link h1 s1 down
+
+(5) Pingall to test network: mininet> pingall
+
+(6) Let a link up: link h1 s1 up
+
+(7) Pingall to test network: mininet> pingall
+
+Similar test methods and results for (linear,n), (tree,n), (assign1), (triangle), (mesh,n), (someloops).
